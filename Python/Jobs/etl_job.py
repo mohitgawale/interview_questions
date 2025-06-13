@@ -2,7 +2,7 @@ import logging
 import argparse
 import sys
 from pyspark.sql import SparkSession
-from dummy_data_processor import DataProcessor
+from commons.DataProcessor import DataProcessor
 
 class PipelineRunner:
     def __init__(self, environment, username, password, app_name="DataProcessor"):
