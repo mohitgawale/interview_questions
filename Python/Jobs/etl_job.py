@@ -68,28 +68,26 @@ def main():
     Main entry point for the data processing application.
     """
     parser = argparse.ArgumentParser(description="Generic Data Processing Pipeline")
-    parser.add_argument("--environment", type=str, required=True, help="Environment (e.g., dev, prod)")
+    parser.add_argument("--environment", type=str, required=True, help="Environment)")
     parser.add_argument("--username", type=str, required=True, help="Database username")
     parser.add_argument("--password", type=str, required=True, help="Database password")
     args = parser.parse_args()
 
-    # Dummy source configurations
     source_configs = [
         {
             "table_name": "source_db.table_one",
-            "query": "SELECT * FROM source_db.table_one",
+            "query": "SELECT * FROM source_db.student",
             "partition_column": "id",
             "num_partitions": 4
         },
         {
             "table_name": "source_db.table_two",
-            "query": "SELECT * FROM source_db.table_two",
+            "query": "SELECT * FROM source_db.batches",
             "partition_column": "key",
             "num_partitions": 8
         }
     ]
 
-    # Dummy SQL query
     sql_query = """
         SELECT 
             a.id AS record_id,
@@ -97,15 +95,14 @@ def main():
             a.created_at,
             b.status,
             b.updated_at
-        FROM source_db_table_one a
-        LEFT JOIN source_db_table_two b
+        FROM source_db_student a
+        LEFT JOIN source_db_batches b
         ON a.id = b.id
         WHERE a.status != 'inactive'
     """
 
-    # Dummy target details
     target_schema = "target_db"
-    target_table = "output_table"
+    target_table = "student_batch_details"
     batch_size = 1000
     repartition_count = 10
     repartition_cols = ["record_id"]
