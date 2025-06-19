@@ -12,14 +12,14 @@ The pipeline is **reusable and flexible**, so it can work with different databas
 
 It’s split into two files:
 
-- `DataProcessor.py`: Contains the main logic for reading, transforming, and saving data.
-- `etl_job.py`: Sets up and runs the pipeline with specific settings.
+- `Commons/DataProcessor.py`: Contains the main logic for reading, transforming, and saving data.
+- `Jobs/etl_job.py`: Sets up and runs the pipeline with specific settings.
 
 ---
 
 ## 📁 File Breakdown
 
-### 1. `DataProcessor.py`
+### 1. `Commons/DataProcessor.py`
 
 This file has a class called `DataProcessor` that does the heavy lifting of the pipeline.  
 It’s like a **toolbox** with functions to handle different steps of data processing.
@@ -66,7 +66,7 @@ This function runs the **full ETL pipeline**:
 
 ---
 
-### 2. `etl_job.py`
+### 2. `Jobs/etl_job.py`
 
 This file is the **entry point**. It sets up example configs and **runs the pipeline**.
 
