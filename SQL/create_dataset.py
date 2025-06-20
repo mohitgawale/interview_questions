@@ -1,0 +1,50 @@
+import pandas as pd
+from io import StringIO
+
+data = """
+click_id,user_id,event_timestamp,source_type,event_name,event_details
+1,U001,2025-06-01 09:58:00,google,home,
+2,U001,2025-06-01 10:00:05,google,product,Laptop
+3,U001,2025-06-01 10:01:10,google,product,Wireless Mouse
+4,U001,2025-06-01 10:03:30,google,checkout,
+5,U001,2025-06-01 10:04:10,google,coupon,SUMMER10
+6,U001,2025-06-01 10:05:00,google,order,ORD001
+7,U001,2025-06-01 10:20:00,google,product,Webcam
+8,U001,2025-06-01 10:21:15,google,checkout,
+9,U001,2025-06-01 10:21:45,google,order,ORD005
+10,U002,2025-06-01 11:00:00,facebook,home,
+11,U002,2025-06-01 11:01:20,facebook,product,Bluetooth Speaker
+12,U002,2025-06-01 11:03:10,facebook,product,Earbuds
+13,U002,2025-06-01 11:05:00,facebook,checkout,
+14,U002,2025-06-01 11:06:00,facebook,coupon,SAVE20
+15,U002,2025-06-01 11:07:20,facebook,order,ORD002
+16,U003,2025-06-01 12:00:00,instagram,home,
+17,U003,2025-06-01 12:01:00,instagram,product,HDMI Cable
+18,U003,2025-06-01 12:02:20,instagram,product,USB Hub
+19,U003,2025-06-01 12:03:15,instagram,home,
+20,U003,2025-06-01 12:04:00,instagram,product,Keyboard
+21,U003,2025-06-01 12:04:45,instagram,checkout,
+22,U003,2025-06-01 12:06:00,instagram,coupon,OFF15
+23,U003,2025-06-01 12:07:00,instagram,order,ORD003
+24,U004,2025-06-01 13:00:00,google,home,
+25,U004,2025-06-01 13:01:05,google,product,Smartwatch
+26,U004,2025-06-01 13:02:10,google,product,Fitness Band
+27,U004,2025-06-01 13:03:15,google,checkout,
+28,U004,2025-06-01 13:04:00,google,coupon,FIT5
+29,U004,2025-06-01 13:04:50,google,order,ORD004
+30,U005,2025-06-01 14:00:00,facebook,home,
+31,U005,2025-06-01 14:01:15,facebook,product,Power Bank
+32,U005,2025-06-01 14:02:00,facebook,product,Charging Cable
+33,U005,2025-06-01 14:03:30,facebook,checkout,
+34,U005,2025-06-01 14:04:00,facebook,home,
+35,U005,2025-06-01 14:04:30,facebook,product,Phone Case
+36,U006,2025-06-01 15:00:00,instagram,home,
+37,U006,2025-06-01 15:01:30,instagram,product,Tablet Stand
+38,U006,2025-06-01 15:03:00,instagram,product,Keyboard
+"""
+
+# Use StringIO to simulate reading from a CSV file
+df = pd.read_csv(StringIO(data), parse_dates=['event_timestamp'])
+
+# Show the dataframe
+print(df.head())
