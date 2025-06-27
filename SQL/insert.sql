@@ -38,7 +38,7 @@ INSERT INTO clickstream (
 (35, 'U005', '2025-06-01 14:04:30', 'facebook', 'product', 'Phone Case'),
 (36, 'U006', '2025-06-01 15:00:00', 'instagram', 'home', NULL),
 (37, 'U006', '2025-06-01 15:01:30', 'instagram', 'product', 'Tablet Stand'),
-(38, 'U006', '2025-06-01 15:03:00', 'instagram', 'product', 'Keyboard')
+(38, 'U006', '2025-06-01 15:03:00', 'instagram', 'product', 'Keyboard'),
 (39, 'U006', '2025-06-01 15:04:00', 'instagram', 'checkout', NULL),
 (40, 'U006', '2025-06-01 15:05:00', 'instagram', 'coupon', 'TECH10'),
 (41, 'U006', '2025-06-01 15:06:00', 'instagram', 'order', 'ORD006'),
