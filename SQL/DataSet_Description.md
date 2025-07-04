@@ -1,54 +1,60 @@
 
 # 📊 Clickstream Dataset Overview
 
-This dataset represents clickstream data captured from users interacting with an e-commerce platform.
+This dataset represents clickstream data collected from an e-commerce platform. It helps track how users interact with the website — from landing on the homepage to completing a purchase. This data is useful for understanding user behavior, measuring conversion rates, and optimizing the user journey.
 
-Each row in the main **clickstream table** corresponds to a single user action (event) on the website, such as viewing a product, applying a coupon, or placing an order.
+Each row in the **clickstream** table represents **a single user event** — like viewing a product, using a coupon, or placing an order.
+
+---
 
 ## 🧾 Clickstream Table: Columns Explained
 
 | Column Name       | Description                                                                 |
 |-------------------|-----------------------------------------------------------------------------|
-| `click_id`        | Unique identifier for each user action or event.                           |
-| `user_id`         | ID representing the user who performed the action.                         |
-| `event_timestamp` | Date and time when the event occurred.                                     |
-| `source_type`     | The traffic source through which the user arrived (e.g., Google, Facebook).|
-| `event_name`      | Type of user action (explained below).                                     |
-| `event_details`   | Additional info about the event (e.g., product name, coupon code).         |
+| `click_id`        | A unique ID for each user event. It acts like a row number.                |
+| `user_id`         | An identifier for the user who performed the action.                       |
+| `event_timestamp` | The exact date and time when the action happened.                          |
+| `source_type`     | Where the user came from (like Google or Facebook).                        |
+| `event_name`      | The type of event or action the user performed (see list below).           |
+| `event_details`   | Extra information about the action (like which product was viewed).        |
 
-## 🔹 `event_name` Types
+### 🔹 Types of `event_name`
 
-- `home` – Landed on the homepage  
-- `product` – Viewed a product  
-- `checkout` – Reached the checkout page  
-- `coupon` – Applied a coupon code  
-- `order` – Completed a purchase  
+The `event_name` column shows what kind of action the user took. These are the possible values:
 
-> 📌 **Note:** `event_details` may be empty for general actions like homepage visits.
+- `home`: The user landed on the homepage.
+- `product`: The user viewed a product page.
+- `checkout`: The user reached the checkout page.
+- `coupon`: The user applied a coupon code.
+- `order`: The user placed an order and completed the purchase.
 
----
-
-## 🧾 Order Details Table: Columns Explained
-
-This new **order_details** table provides **extra information about completed orders** found in the clickstream `order` events.
-
-| Column Name      | Description                                                      |
-|------------------|------------------------------------------------------------------|
-| `order_id`       | Unique ID of the order (matches `event_details` in `order` events). |
-| `state`          | The U.S. state where the order will be delivered.               |
-| `amount`         | Total order value in USD.                                       |
-| `pincode`        | Zip code (postal code) of the delivery address.                 |
-| `delivery_date`  | Scheduled delivery date of the order.                           |
-
-This allows combining behavioral data (clicks) with transactional data (order value and delivery).
+> ⚠️ **Note:** For general actions like homepage visits, `event_details` may be empty. For example, if someone just visited the homepage, there's no extra detail to capture.
 
 ---
 
-## 👣 Example of a User Journey (with Enriched Order Details)
+## 📦 Order Details Table: Columns Explained
 
-Let’s walk through **User `U001`'s** journey on **June 1, 2025**:
+The newly added **order_details** table gives more information about each purchase recorded in the clickstream data.
 
-### Clickstream Events
+In the clickstream table, when an `order` event is recorded, the `event_details` field stores the `order_id`. Using this `order_id`, we can link it to the `order_details` table to get details like how much was spent, where the order will be delivered, and when it’s expected to arrive.
+
+| Column Name      | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `order_id`       | Unique ID for the order. Matches the ID in `event_details` of `order` events.|
+| `state`          | The U.S. state where the order is going to be delivered.                    |
+| `amount`         | Total order amount in USD.                                                  |
+| `pincode`        | The zip code of the delivery location.                                      |
+| `delivery_date`  | The expected date when the product will be delivered.                       |
+
+> ✅ This table lets us connect behavioral actions (like clicking and buying) to financial and delivery information.
+
+---
+
+## 👣 Example: A Complete User Journey with Enriched Order Details
+
+Let’s walk through an example of **User `U001`'s** journey on **June 1, 2025** to see how both tables work together:
+
+### 🧭 Clickstream Events
 
 | click_id | event_timestamp       | source_type | event_name | event_details   |
 |----------|------------------------|-------------|------------|-----------------|
@@ -59,10 +65,27 @@ Let’s walk through **User `U001`'s** journey on **June 1, 2025**:
 | 5        | 2025-06-01 10:04:10    | google      | coupon     | SUMMER10        |
 | 6        | 2025-06-01 10:05:00    | google      | order      | ORD001          |
 
-### Order Details
+### 📦 Matching Order Details (from `order_details` table)
 
 | order_id | state      | amount | pincode | delivery_date |
 |----------|------------|--------|---------|----------------|
 | ORD001   | California | 999.99 | 90210   | 2025-06-05     |
 
-✅ So, this user completed a purchase worth **$999.99**, to be delivered to **California (ZIP: 90210)** on **June 5, 2025**.
+### ✅ What This Tells Us
+
+- The user **landed on the homepage** via **Google**.
+- Then they **viewed two products**: a **Laptop** and a **Wireless Mouse**.
+- They proceeded to the **checkout page**.
+- Used a **coupon code** `SUMMER10`.
+- **Completed the purchase** with order ID **ORD001**.
+
+From the second table, we also know that:
+- The order was worth **$999.99**.
+- It was to be delivered to **California (ZIP 90210)**.
+- Expected delivery date was **June 5, 2025**.
+
+So, we can now track the **full conversion funnel** — from visit to purchase — and enrich it with **transactional data**.
+
+---
+
+Let me know if you want this enriched with visual flowcharts, KPIs, or query examples.
